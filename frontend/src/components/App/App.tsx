@@ -31,7 +31,6 @@ export class App extends React.PureComponent<IAppProps, IAppState> {
   }
 
   renderEnabled = (params: IWeb3Context) => {
-    const a = config[ContractEnum.DoubleOrNothing]
     return (
       <div className="app">
         <ContractLoader

@@ -1,6 +1,5 @@
 import React from 'react'
 import './Display.css'
-import { formatEther } from 'ethers/utils'
 
 interface IDisplayProps {
   balance: string

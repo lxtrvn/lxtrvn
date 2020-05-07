@@ -18,7 +18,11 @@ interface IAccountInfo {
   activeTimestamp: number
 }
 
-interface IDoubleGameContainerState {
+interface StateWithDebugLogs {
+  debugMessages: string[]
+}
+
+interface IDoubleGameContainerState extends StateWithDebugLogs{
   referrer?: string
   betAmount: number
   balance: string
@@ -55,7 +59,8 @@ export class DoubleGameContainer extends React.PureComponent<
         reward: '0',
         referredCount: '0',
         activeTimestamp: Date.now()
-      }
+      },
+      debugMessages: [],
     }
   }
 
@@ -92,6 +97,12 @@ export class DoubleGameContainer extends React.PureComponent<
     )
   }
 
+  log = (v: any) => {
+    this.setState(prevState => ({
+      debugMessages: [`${v}`].concat(prevState.debugMessages)
+    }))
+  }
+
   play = (val: number) => {
     this.setState({ disabled: true })
     const params: any = [
@@ -120,6 +131,10 @@ export class DoubleGameContainer extends React.PureComponent<
           flipping: false,
           win: event.args.winnings.toString() !== '0'
         })
+      })
+      .catch((err: Error) => {
+        console.log(`setState("logs", ${err})`)
+        this.log(JSON.stringify(err))
       })
       .finally(() => {
         this.setState({ disabled: false, flipping: false })
@@ -171,6 +186,9 @@ export class DoubleGameContainer extends React.PureComponent<
           decimals={18}
           symbol={'TT'}
         />
+        <div id="debug-messages">
+          {this.state.debugMessages.map((message, index) => (<div key={index}>{message}</div>))}
+        </div>
       </>
     )
   }

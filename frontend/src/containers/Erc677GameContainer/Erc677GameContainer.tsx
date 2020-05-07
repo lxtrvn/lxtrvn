@@ -1,6 +1,6 @@
 import React from 'react'
 import { Contract } from 'ethers'
-import { BigNumber, bigNumberify, parseEther, parseUnits } from 'ethers/utils'
+import { BigNumber, bigNumberify, parseUnits } from 'ethers/utils'
 import Game from '../../components/Game/Game'
 import Header from '../../components/Header/Header'
 import { ContractEnum } from '../../ContractEnum'

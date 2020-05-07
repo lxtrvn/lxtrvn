@@ -5,7 +5,7 @@ import Display from '../Display/Display'
 import cardSrc from '../../assets/ig_coin_card.png'
 import CoinPicker from '../CoinPicker/CoinPicker'
 import { ContractEnum } from '../../ContractEnum'
-import { parseUnits, formatUnits }  from 'ethers/utils'
+import { formatUnits }  from 'ethers/utils'
 
 interface IGameProps {
   active: ContractEnum
@@ -50,7 +50,7 @@ export class Game extends React.PureComponent<IGameProps, IGameState> {
       symbol,
     } = this.props
     const { animating } = this.state
-    let b = balance.length == 0 ? '0' : balance
+    let b = balance.length === 0 ? '0' : balance
     return (
       <div className="game-container">
         <CoinPicker active={active} changeContract={changeContract} />

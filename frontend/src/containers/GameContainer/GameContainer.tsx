@@ -14,7 +14,6 @@ interface IGameContainerProps {
 
 interface IGameContainerState {
   currentContract: ContractEnum
-  logs: string[]
 }
 
 export class GameContainer extends React.PureComponent<
@@ -23,16 +22,14 @@ export class GameContainer extends React.PureComponent<
 > {
   state = {
     currentContract: ContractEnum.DoubleOrNothing,
-    logs: ['']
   }
 
   changeContract = (contract: ContractEnum) => {
-    const { logs } = this.state
-    this.setState({ currentContract: contract, logs: logs.concat(["change"]) })
+    this.setState({ currentContract: contract })
   }
 
   render() {
-    const { currentContract, logs } = this.state
+    const { currentContract } = this.state
     const { address, contracts } = this.props
     if (currentContract === ContractEnum.DoubleOrNothing) {
       return (
@@ -44,7 +41,6 @@ export class GameContainer extends React.PureComponent<
       )
     } else {
       return (
-        <div>
         <Erc677GameContainer
           gameAddress={contracts[ContractEnum.DoubleOrNothing].address}
           contractName={ContractEnum.TTUsdt}
@@ -52,8 +48,6 @@ export class GameContainer extends React.PureComponent<
           address={address}
           changeContract={this.changeContract}
         />
-        {logs.map(log => (<div>{log}</div>))}
-        </div>
       )
 
     }
