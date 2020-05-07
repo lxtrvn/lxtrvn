@@ -97,7 +97,7 @@ export class DoubleGameContainer extends React.PureComponent<
     const params: any = [
       {
         value: parseEther(val.toString()).toHexString(),
-        // because there is an if else based on time, the estimate gas will fail and teh transaction will fail
+        // because there is an if else based on time, the estimate gas will fail and the transaction will fail
         // you must set the gas limit
         gasLimit: bigNumberify('200000').toHexString()
       }
