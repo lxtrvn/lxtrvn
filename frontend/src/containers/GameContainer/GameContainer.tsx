@@ -8,13 +8,13 @@ interface IGameContainerProps {
   contracts: {
     [ContractEnum.DoubleOrNothing]: Contract
     [ContractEnum.TTUsdt]: Contract
-    [ContractEnum.TTDai]: Contract
   }
   address: string
 }
 
 interface IGameContainerState {
   currentContract: ContractEnum
+  logs: string[]
 }
 
 export class GameContainer extends React.PureComponent<
@@ -22,15 +22,17 @@ export class GameContainer extends React.PureComponent<
   IGameContainerState
 > {
   state = {
-    currentContract: ContractEnum.DoubleOrNothing
+    currentContract: ContractEnum.DoubleOrNothing,
+    logs: ['']
   }
 
   changeContract = (contract: ContractEnum) => {
-    this.setState({ currentContract: contract })
+    const { logs } = this.state
+    this.setState({ currentContract: contract, logs: logs.concat(["change"]) })
   }
 
   render() {
-    const { currentContract } = this.state
+    const { currentContract, logs } = this.state
     const { address, contracts } = this.props
     if (currentContract === ContractEnum.DoubleOrNothing) {
       return (
@@ -40,18 +42,9 @@ export class GameContainer extends React.PureComponent<
           changeContract={this.changeContract}
         />
       )
-    } else if (currentContract === ContractEnum.TTDai) {
-      return (
-        <Erc677GameContainer
-          gameAddress={contracts[ContractEnum.DoubleOrNothing].address}
-          contractName={ContractEnum.TTDai}
-          contract={contracts[ContractEnum.TTDai]}
-          address={address}
-          changeContract={this.changeContract}
-        />
-      )
     } else {
       return (
+        <div>
         <Erc677GameContainer
           gameAddress={contracts[ContractEnum.DoubleOrNothing].address}
           contractName={ContractEnum.TTUsdt}
@@ -59,7 +52,10 @@ export class GameContainer extends React.PureComponent<
           address={address}
           changeContract={this.changeContract}
         />
+        {logs.map(log => (<div>{log}</div>))}
+        </div>
       )
+
     }
   }
 }

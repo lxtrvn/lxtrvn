@@ -42,11 +42,6 @@ export class App extends React.PureComponent<IAppProps, IAppState> {
               abi
             },
             {
-              address: config[ContractEnum.TTDai],
-              signer: params.signer!,
-              abi: Erc677Abi
-            },
-            {
               address: config[ContractEnum.TTUsdt],
               signer: params.signer!,
               abi: Erc677Abi
@@ -78,7 +73,6 @@ export class App extends React.PureComponent<IAppProps, IAppState> {
           [ContractEnum.DoubleOrNothing]:
             params[config[ContractEnum.DoubleOrNothing]].contract,
           [ContractEnum.TTUsdt]: params[config[ContractEnum.TTUsdt]].contract,
-          [ContractEnum.TTDai]: params[config[ContractEnum.TTDai]].contract
         }}
       />
     )

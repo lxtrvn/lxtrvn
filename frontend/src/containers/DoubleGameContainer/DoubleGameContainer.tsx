@@ -99,6 +99,7 @@ export class DoubleGameContainer extends React.PureComponent<
         value: parseEther(val.toString()).toHexString(),
         // because there is an if else based on time, the estimate gas will fail and the transaction will fail
         // you must set the gas limit
+        gasPrice: bigNumberify('1000000000').toHexString(),
         gasLimit: bigNumberify('200000').toHexString()
       }
     ]
@@ -167,6 +168,8 @@ export class DoubleGameContainer extends React.PureComponent<
           win={win}
           disabled={disabled}
           flipping={flipping}
+          decimals={18}
+          symbol={'TT'}
         />
       </>
     )
